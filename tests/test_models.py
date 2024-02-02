@@ -147,7 +147,7 @@ class TestProductModel(unittest.TestCase):
         logger.info(str(product))
         # change
         product.id = None
-        self.assertRaises(DataValidationError, product.update())
+        self.assertRaises(DataValidationError, product.update)
 
     def test_delete_a_product(self):
         """It should Delete a Product"""
