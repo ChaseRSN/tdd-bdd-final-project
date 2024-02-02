@@ -28,11 +28,11 @@ import os
 import logging
 from decimal import Decimal
 from unittest import TestCase
+from urllib.parse import quote_plus
 from service import app
 from service.common import status
 from service.models import db, init_db, Product
 from tests.factories import ProductFactory
-from urllib.parse import quote_plus
 
 # Disable all but critical errors during normal test run
 # uncomment for debugging failing tests
@@ -162,10 +162,10 @@ class TestProductRoutes(TestCase):
 
     # ----------------------------------------------------------
     # TEST READ
-    # ----------------------------------------------------------    
+    # ----------------------------------------------------------
     def test_get_product(self):
         """It should Read a Product"""
-        test_product = self._create_products()[0] 
+        test_product = self._create_products()[0]
         response = self.client.get(f"{BASE_URL}/{test_product.id}")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
@@ -197,7 +197,7 @@ class TestProductRoutes(TestCase):
 
     # ----------------------------------------------------------
     # TEST DELETE
-    # ---------------------------------------------------------- 
+    # ----------------------------------------------------------
     def test_delete_product(self):
         """It should Delete a Product"""
         products = self._create_products(5)
@@ -214,7 +214,7 @@ class TestProductRoutes(TestCase):
 
     # ----------------------------------------------------------
     # TEST LIST
-    # ----------------------------------------------------------  
+    # ----------------------------------------------------------
     def test_get_product_list(self):
         """It should Get a list of Products"""
         self._create_products(5)
@@ -259,7 +259,7 @@ class TestProductRoutes(TestCase):
         """It should Query Products by availability"""
         products = self._create_products(10)
         available_products = [product for product in products if product.available is True]
-        available_count = len(available_products)        
+        available_count = len(available_products)
         # test for available
         response = self.client.get(
             BASE_URL, query_string="available=true"
